@@ -1,0 +1,168 @@
+<html>
+    <head>
+        <title>UIElement Parent Class</title>
+    </head>
+
+    <body>
+        <h1>UIElement Parent Class</h1>
+        <dl>
+            <dt>UIElement(surface, xpos, ypos, width, height, font="Comic Sans MS", font_size=14)</dt>
+            <dd><p>
+                All UI elements inherit from this class and should share its functionality. <br>
+                Inherit from this to create custom UI elements.
+            </p></dd>
+        </dl>
+
+        <h3>Parameters</h3>
+                
+        <dl>
+            <dt>surface</dt>
+            <dd>The pygame surface for the TextBox to be drawn on</dd>
+            <dt>xpos</dt>
+            <dd>X-coordinate of the UI element. Origin at top left of surface</dd>
+            <dt>ypos</dt>
+            <dd>Y-coordinate of the UI element. Origin at top left of surface</dd>
+            <dt>width</dt>
+            <dd>Pixel width of the UI element</dd>
+            <dt>height</dt>
+            <dd>Pixel height of the UI element</dd>
+            <dt>font</dt>
+            <dd>Font family for the drawn text</dd>
+            <dt>font_size</dt>
+            <dd>Size of the drawn text</dd>
+        </dl>
+
+        <h3>Methods</h3>
+
+        <dl>
+            <dt>
+                <h4>get_pos() -> Vector</h4>
+
+                <p>
+                    Returns the <i>Vector</i> position (surface x and y coordinate) of the UI element. <br>
+                </p>
+            </dt>
+
+            <dt>
+                <h4>set_pos(xpos, ypos)</h4>
+
+                <p>
+                    Sets the position of the UI element on it's surface. <br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>xpos (<i>int</i>)</dt>
+                    <dd>Surface x-position for the UI element</dd>
+                    <dt>ypos (<i>int</i>)</dt>
+                    <dd>Surface y-position for the UI element</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>set_visible(active)</h4>
+
+                <p>
+                    Sets the visibility of the UI element. <br>
+                    Use decorator <i>@require_visibility</i> to make <i>set_visible()</i> actually useful.
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>visible (<i>bool</i>)</dt>
+                    <dd>Value (True/False) to set the <i>self.visible</i> attribute.</dd>
+                </dl>
+            </dd>
+            
+            <dt>
+                <h4>get_bbox() -> Vector</h4>
+                
+                <p>
+                    Returns the bounding box position of the UI element. <br>
+                    Bounding box position is the bottom left corner <i>Vector</i> position of the UI element.
+                </p>
+            </dt>
+
+            <dt>
+                <h4>collision_point(pos) -> Bool</h4>
+    
+                <p>
+                    Returns if the given position is within the bounding area of the UI element.<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>pos (<i>Vector</i>)</dt>
+                    <dd>The point position to test if within the bounding area</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>set_image(image_dir, width=0, height=0) -> Bool</h4>
+    
+                <p>
+                    Sets the image (sprite) for the UI element to draw.<br>
+                    Use <i>self._draw_sprite()</i> within the <i>self.draw()</i> method to make <i>self.set_image()</i> actually useful.
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>image_dir (<i>string</i>)</dt>
+                    <dd>Directory of the image file. (must be accepted by pygame).</dd>
+                    <dt>width (<i>int</i>)</dt>
+                    <dd>Pixel width of the image. If set to 0, width is set to the UI element's width.</dd>
+                    <dt>height (<i>int</i>)</dt>
+                    <dd>Pixel height of the image. If set to 0, height is set to the UI element's height.</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>update(events=[])</h4>
+    
+                <p>
+                    Empty in parent class. <br>
+                    Meant to be called every frame for interacivity with a UI element.
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>events (<i>list</i>)</dt>
+                    <dd>Event list from <i>pygame.event.get()</i>. Used for checking for mouse and key presses (as well as other things).</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>draw()</h4>
+    
+                <p>
+                    Empty in parent class. <br>
+                    Meant to be called every frame and include pygame functions to draw the UI element to the screen. <br>
+                    These functions are also relevant:
+                    <ul>
+                        <li><i>self._draw_background()</i></li>
+                        <li><i>self._draw_text()</i></li>
+                        <li><i>self._draw_border()</i></li>
+                        <li><i>self._draw_sprite()</i></li>
+                    </ul>
+                </p>
+            </dt>
+
+            <dt>
+                <h4>set_tags(tags)</h4>
+    
+                <p>
+                    Assings multiple tags to the UI element <br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>tags (<i>list</i>)</dt>
+                    <dd>List of tags (<i>strings</i>) to give to the UI element.<br>This list is copied and unedited.</dd>
+                </dl>
+            </dd>
+
+        </dl>
+
+    <u><a href="../main.html">Back</a></u>
+    </body>
+</html>

@@ -66,7 +66,7 @@ class UIElement:
 
 
     #Get/set for position (returns Vector)
-    def get_pos(self):
+    def get_pos(self) -> Vector:
         return self._pos
 
     def set_pos(self, xpos, ypos):
@@ -74,11 +74,11 @@ class UIElement:
 
     #Set the visiblity of the element
     #   active : true/false visibility
-    def set_visible(self, active):
-        self.visible = active
+    def set_visible(self, visible):
+        self.visible = visible
 
     #Return the bottom-right corner of the collision box
-    def get_bbox(self):
+    def get_bbox(self) -> Vector:
         self._bbox.set_pos(self._pos.x + self.size.x, self._pos.y + self.size.y)
         return self._bbox
 
@@ -153,18 +153,12 @@ class UIElement:
 
     def get_text(self):
         return self._text
-
-    #set the font, including font align
-    #   pygame_font : must be a pygame.font.SysFont()
-    def set_font(self, pygame_font, align="left"):
-        self._font = pygame_font
-        self.font_align = align
     
     #Set the font
     #   font_name : the system name of the font
     #   size : the size of the font
     #   align : the alignement of the written text
-    def set_font2(self, font_name, size, align="left", args=()):
+    def set_font(self, font_name, size, align="left", args=()):
         self._font = pygame.sysfont.SysFont(font_name, size, *args)
         self.font_align = align
 
