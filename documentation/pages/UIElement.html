@@ -107,7 +107,7 @@
             </dt>
             <dd>
                 <dl>
-                    <dt>image_dir (<i>string</i>)</dt>
+                    <dt>image_dir (<i>str</i>)</dt>
                     <dd>Directory of the image file. (must be accepted by pygame).</dd>
                     <dt>width (<i>int</i>)</dt>
                     <dd>Pixel width of the image. If set to 0, width is set to the UI element's width.</dd>
@@ -151,13 +151,63 @@
                 <h4>set_tags(tags)</h4>
     
                 <p>
-                    Assings multiple tags to the UI element <br>
+                    Replaces all tags in the UI element with the tags provided. <br>
                 </p>
             </dt>
             <dd>
                 <dl>
                     <dt>tags (<i>list</i>)</dt>
-                    <dd>List of tags (<i>strings</i>) to give to the UI element.<br>This list is copied and unedited.</dd>
+                    <dd>List of tags (strings) to give to the UI element.<br>This list is copied and unedited.</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>get_tags() -> list</h4>
+    
+                <p>
+                    Gets the list of tags (strings) from the UI element.<br>
+                </p>
+            </dt>
+
+            <dt>
+                <h4>add_tag(tag)</h4>
+    
+                <p>
+                    Appends the given tag to the tag list of the UI element.<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>tag (<i>str</i>)</dt>
+                    <dd>Tag to append to the tag list</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>remove_tag(tag)</h4>
+    
+                <p>
+                    Remove the given tag from the UI element's tag list.<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>tag (<i>str</i>)</dt>
+                    <dd>Tag to remove from the tag list</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>has_tags(tags, needs_all=True)</h4>
+    
+                <p>
+                    Remove the given tag from the UI element's tag list.<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>tag (<i>str</i>)</dt>
+                    <dd>Tag to remove from the tag list</dd>
                 </dl>
             </dd>
 

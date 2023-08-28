@@ -83,7 +83,7 @@ class UIElement:
         return self._bbox
 
     #Returns if scrreen position is in bounding box of ui
-    def collision_point(self, pos):
+    def collision_point(self, pos) -> bool:
         _bbox = self.get_bbox()
         return (self._pos.x <= pos.x <= _bbox.x and self._pos.y <= pos.y <= _bbox.y)
 
@@ -113,7 +113,7 @@ class UIElement:
     def set_tags(self, tags):
         self._tags = tags.copy()
 
-    def get_tags(self):
+    def get_tags(self) -> list:
         return self._tags
 
     def add_tag(self, tag):
@@ -125,7 +125,7 @@ class UIElement:
     #Returns if object has all tags in passed tag list
     #   tags : list of tags that the object must contain
     #   needs_all : determine if at least one of the tags in the list is needed
-    def has_tags(self, tags, needs_all=True):
+    def has_tags(self, tags, needs_all=True) -> bool:
         if needs_all == True:
             _has_all = True
 
