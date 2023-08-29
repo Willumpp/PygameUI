@@ -1,0 +1,33 @@
+<html>
+    <head>
+        <title>Selection Button</title>
+    </head>
+
+    <body>
+        <h1>Selection Button</h1>
+        <dl>
+            <dt>SelectionButton(surface, xpos, ypos, width, height, function, selection_col, default_col, buttons, args=())</dt>
+            <dd><p>
+                Draws a button which can be pressed and call a given function with specified arguments. <br>
+                This differs from a regular button as it changes the colour of every other button when it is pressed. (like a radio button) <br>
+            </p></dd>
+
+            <dt>Parent:</dt>
+            <dd>Button</dd>
+        </dl>
+
+        <h3>Parameters</h3>
+                
+        <dl>
+            <dt>selection_col (<i>tuple</i> of <i>int</i>)</dt>
+            <dd>Background colour to fill in when this button is selected</dd>
+            <dt>default_col (<i>tuple</i> of <i>int</i>)</dt>
+            <dd>Background colour to fill in when this button is de-selected (when another different selection button is pressed)</dd>
+            <dt>buttons (list of <i>SelectionButton</i>)</dt>
+            <dd>A list of all selection buttons that will be affected when one is pressed.</dd>
+
+        </dl>
+
+    <u><a href="../main.html">Back</a></u>
+    </body>
+</html>

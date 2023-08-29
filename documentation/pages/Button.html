@@ -1,0 +1,66 @@
+<html>
+    <head>
+        <title>Buttons</title>
+    </head>
+
+    <body>
+        <h1>Buttons</h1>
+        <dl>
+            <dt>Button(surface, xpos, ypos, width, height, function, args=())</dt>
+            <dd><p>
+                Draws a button which can be pressed and call a given function with specified arguments <br>
+            </p></dd>
+
+            <dt>Parent:</dt>
+            <dd>UIElement</dd>
+        </dl>
+
+        <h3>Parameters</h3>
+                
+        <dl>
+            <dt>function (function)</dt>
+            <dd>Function called when the button is pressed</dd>
+            <dt>args (<i>tuple</i>)</dt>
+            <dd>Parameters for the function to use when called</dd>
+        </dl>
+
+        <h3>Methods</h3>
+
+        <dl>
+            <dt>
+                <h4>force_event()</h4>
+
+                <p>
+                    Forces and triggers a button press<br>
+                </p>
+            </dt>
+
+            <dt>
+                <h4>draw()</h4>
+
+                <p>
+                    Draws background, sprite, text, border (respective order)<br>
+                    <i>self.visible</i> must be true to trigger.
+                </p>
+            </dt>
+
+            <dt>
+                <h4>update(events)</h4>
+
+                <p>
+                    Provides clicking detection for the button UI element. <br>
+                    <i>self.visible</i> must be true to trigger.
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>events (<i>bool</i>)</dt>
+                    <dd>Event list from <i>pygame.event.get()</i></dd>
+                </dl>
+            </dd>
+    
+        </dl>
+
+    <u><a href="../main.html">Back</a></u>
+    </body>
+</html>

@@ -367,14 +367,6 @@ class SelectionButton(Button):
 '''
 Text Input class
 UI Element which you can click and then type into
-
-Parameters:
-    default_text : the text which is displayed when the text box is empty (the text is not retrieved with get_text)
-    max_characters : the maximum number of characters the textbox holds
-
-Methods:
-    has_text() : returns if the textbox has text within
-    get_text() : returns the text typed within the text box
 '''
 class TextInput(UIElement):
     def __init__(self, surface, xpos, ypos, width, height, default_text, max_characters, use_int=False, max_val=2**32, min_val=-2**32):
@@ -391,7 +383,7 @@ class TextInput(UIElement):
         self.min_val = min_val
 
     #Returns if there is text in the text box
-    def has_text(self):
+    def has_text(self) -> bool:
         return (len(self._text) != 0)
 
     def call_event(self):
@@ -479,10 +471,6 @@ Layers class
 Add objects and UI elements to the layer and have control over them
     Allows for menu control etc.
 
-Parameters:
-    layer_name : the UNIQUE name to call the layer (used for searching for the layer)
-    parent_layer : the parent layer of THIS layer
-
 Methods:
     add_objects : Can add a singular object or multiple objects to a layer for handling
     add_UIelements : Can add a singular UI element or multiple UI elements to a layer for handling
@@ -509,44 +497,44 @@ class Layer:
 
     #Get methods for things on layer
     #   copy ; whether to get by reference or copy whole array
-    def get_objects(self, copy=True):
+    def get_list(self, array, copy=True) -> list:
         if copy == True:
-            return self.objects.copy()
+            return array.copy()
         else:
-            return self.objects
+            return array
+
+    def get_objects(self, copy=True):
+        return self.get_list(self.objects, copy=copy)
 
     def get_UIelements(self, copy=True):
-        if copy == True:
-            return self.UIelements.copy()
-        else:
-            return self.UIelements
+        return self.get_list(self.UIelements, copy=copy)
+    
 
     #Find UI elements with specific tags
     #   tags ; at least one tag needs to be on object
     #   has_all ; determines if all tags are required to be on object
-    def find_ui_element(self, tags, has_all=False):
+    def _find_from_list_with_tag(self, array, tags, has_all=False) -> list:
         elements = []
 
-        for element in self.UIelements:
+        for element in array:
             if element.has_tags(tags, has_all=has_all):
                 elements.append(element)
 
+        
         return elements.copy()
+
+    def find_ui_element(self, tags, has_all=False) -> list:
+        return self._find_from_list_with_tag(self.UIelements, tags, has_all=has_all)
 
     #Find Object with specific tags
     #   tags ; at least one tag needs to be on object
     #   has_all ; determines if all tags are required to be on object
-    def find_object(self, tags, has_all=False):
-        elements = []
+    def find_object(self, tags, has_all=False) -> list:
+        return self._find_from_list_with_tag(self.objects, tags, has_all=has_all)
 
-        for element in self.objects:
-            if element.has_tags(tags, has_all=has_all):
-                elements.append(element)
-
-        return elements.copy()
 
     #Set the function and arguments for the function call when set to visible
-    def set_upon_visible(self, func, args=()):
+    def set_upon_visible_func(self, func, args=()):
         self.upon_visible = func
         self.upon_visible_args = args
 
@@ -556,62 +544,49 @@ class Layer:
     #Adds an object to the layer
     #   single_obj : single game object to add to the layer
     #   obj_list : list of objects to add to the layer
-    def add_objects(self, single_obj=None, obj_list=[]):
-        if single_obj != None:
-            self.objects.append(single_obj)
+    def _add_items(self, array, single_item=None, item_list=[]):
+        if single_item != None:
+            array.append(single_item)
         
-        for obj in obj_list:
-            self.objects.append(obj)
-    
+        for item in item_list:
+            array.append(item)
+
+    def add_objects(self, single_obj=None, obj_list=[]):
+        self._add_items(self.objects, single_item=single_obj, item_list=obj_list)
+
+    def add_ui_element(self, single_element=None, element_list=[]):
+        self._add_items(self.UIelements, single_item=single_element, item_list=element_list)
+
     #Clear layer of all objects
     def clear_objects(self):
         self.objects.clear()
 
     #Clear layer of all ui elements
-    def clear_ui(self):
+    def clear_ui_elements(self):
         self.UIelements.clear()
 
     #Remove object from the layer
     #   obj_list : list of objects to remove
     #   tag : remove object with specific tag
-    def remove_objects(self, obj_list=[], tags=[]):
-        _objects = self.objects.copy()
+    def _remove_items(self, array, item_list=[], tags=[]):
+        _items = array.copy()
 
-        if obj_list != []:
-            for obj in self.objects:
-                if obj in obj_list:
-                    self.objects.remove(obj)
+        if item_list != []:
+            for item in array:
+                if item in item_list:
+                    array.remove(item)
 
         elif tags != []:
-            for obj in _objects:
+            for obj in _items:
                 if obj.has_tags(tags):
-                    self.objects.remove(obj)
+                    array.remove(item)
 
-    #Remove UI element from the layer
-    #   obj_list : list of objects to remove
-    #   tag : remove object with specific tag
-    def remove_UIelements(self, element_list=[], tags=[]):
 
-        _objects = self.UIelements.copy()
-        for obj in element_list:
-            if obj in self.UIelements:
-                self.UIelements.remove(obj)
+    def remove_objects(self, obj_list=[], tags=[]):
+        self._remove_items(self.objects, item_list=obj_list, tags=tags)
 
-        for obj in _objects:
-            if obj.has_tags(tags):
-                self.UIelements.remove(obj)
-
-    
-
-    #Adds UI elements to the layer
-    #   single_element : single UI element to add to the layer
-    #   element_list : list of elements to add to the layer
-    def add_UIelements(self, single_element=None, element_list=[]):
-        if single_element != None:
-            self.UIelements.append(single_element)
-        
-        for element in element_list:
-            self.UIelements.append(element)
+    def remove_ui_elements(self, element_list=[], tags=[]):
+        self._remove_items(self.UIelements, item_list=element_list, tags=tags)
 
 
     #Add a sub-layer to this layer
@@ -623,42 +598,42 @@ class Layer:
 
     #Set the visibility of the layer (but not child layers)
     #   active : boolean to hide or show the layer
-    def set_visible(self, active):
-        self.visible = active
+    def set_visible(self, visible):
+        self.visible = visible
 
         #Set visiblity of all objects
         for obj in self.objects:
-            obj.set_visible(active)
+            obj.set_visible(visible)
 
         #Set visibility of all UI elements
         for element in self.UIelements:
-            element.set_visible(active)
+            element.set_visible(visible)
 
 
     #Set the visibility of the layer (including child layers)
     #   active : boolean to hide or show the layer
-    def set_visibility(self, active, set_self=True):
+    def depth_set_visible(self, visible, set_self=True):
         
         #Perform a depth-first / in-order traversal
         for layer in self.child_layers:
-            layer.set_visibility(active)
+            layer.set_visibility(visible)
 
         #When at a leaf node..
 
         #Set the visibility of self
         if set_self == True:
-            self.set_visible(active)
+            self.set_visible(visible)
 
             #Set visiblity of all objects
             for obj in self.objects:
-                obj.set_visible(active)
+                obj.set_visible(visible)
 
             #Set visibility of all UI elements
             for element in self.UIelements:
-                element.set_visible(active)
+                element.set_visible(visible)
 
             #Call upon visible when set to active
-            if active == True:
+            if visible == True:
                 self.upon_visible(*self.upon_visible_args)
 
     #Update all objects in layer and in child layers
@@ -699,15 +674,11 @@ class Layer:
             for layer in self.child_layers:
                 layer.draw()
 
-            
-    
-
-
     #Find a layer with a given layer name , returns the layer object and the Queue of layers to the layer
     #   layer_name : the name of the layer to find (string)
     #   path : queue of preceding layers (not meant to be assigned upon first call)
     # def find_layer(self, layer_name, path=Queue(16)):
-    def find_layer(self, layer_name, path=None):
+    def find_layer(self, layer_name, path=None) -> tuple:
         if path == None:
             self._path.clear()
             path = self._path

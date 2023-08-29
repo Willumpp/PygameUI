@@ -1,0 +1,291 @@
+<html>
+    <head>
+        <title>Layer Class</title>
+    </head>
+
+    <body>
+        <h1>Layer Class</h1>
+        <dl>
+            <dt>Layer(layer_name, parent_layer=None)</dt>
+            <dd><p>
+                Layers are useful for handling groups of UI elements and objects.<br>
+                This includes hiding entire layers at once - disabling their functionality. This is useful for adding menus that can be revealed or hidden, for example.
+            </p></dd>
+        </dl>
+
+        <h3>Parameters</h3>
+                
+        <dl>
+            <dt>layer_name (<i>str</i>)</dt>
+            <dd>The <b>unique</b> name to call the layer (used for searching for the layer)</dd>
+            <dt>parent_layer (<i>Layer</i>)</dt>
+            <dd>The parent layer of this layer. Think of a tree-like structure.</dd>
+        </dl>
+
+        <h3>Methods</h3>
+
+        <dl>
+            <dt>
+                <h4>get_objects(copy=True) -> List</h4>
+
+                <p>
+                    Returns a list of all objects stored within the Layer.<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>copy (<i>bool</i>)</dt>
+                    <dd>Determine if the list of all objects is returned as a copy or by reference</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>get_ui_elements(copy=True) -> List</h4>
+
+                <p>
+                    Returns a list of all UI elements stored within the Layer.<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>copy (<i>bool</i>)</dt>
+                    <dd>Determine if the list of all UI elements is returned as a copy or by reference</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>find_ui_element(tags, has_all=False) -> list</h4>
+
+                <p>
+                    Find UI elements with specific tags within the layer.<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>tags (<i>list</i> of <i>str</i>)</dt>
+                    <dd>List of tags that will be used within the search</dd>
+                    <dt>has_all (<i>bool</i>)</dt>
+                    <dd>Specify if all tags in the <i>tags</i> list is required (true) or at least one (false)</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>find_object(tags, has_all=False) -> list</h4>
+
+                <p>
+                    Find Object with specific tags within the layer.<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>tags (<i>list</i> of <i>str</i>)</dt>
+                    <dd>List of tags that will be used within the search</dd>
+                    <dt>has_all (<i>bool</i>)</dt>
+                    <dd>Specify if all tags in the <i>tags</i> list is required (true) or at least one (false)</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>set_upon_visible_func(func, args=())</h4>
+
+                <p>
+                    Set a function to call when the visibility of the layer is set to true<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>func (function)</dt>
+                    <dd>Function to call when the visibility of the layer is set to true</dd>
+                    <dt>args (<i>tuple</i>)</dt>
+                    <dd>Arguments to pass to the function when it is called</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>add_objects(single_obj=None, obj_list=[])</h4>
+
+                <p>
+                    Add objects to the layer.<br>
+                    Objects must contain an <i>update</i> method or a <i>draw</i> method.
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>single_obj (object of any type)</dt>
+                    <dd>Specify a singular object to add to the layer. Leave as None to ignore this.</dd>
+                    <dt>obj_list (<i>list</i>)</dt>
+                    <dd>Provide a list of objects to add to the layer</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>add_ui_element(single_element=None, element_list=[])</h4>
+
+                <p>
+                    Add UI elements to the layer.<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>single_element (<i>UIElement</i>)</dt>
+                    <dd>Specify a singular UI element to add to the layer. Leave as None to ignore this.</dd>
+                    <dt>element_list (<i>list</i> of <i>UIElement</i>)</dt>
+                    <dd>Provide a list of UI elements to add to the layer</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>clear_objects()</h4>
+
+                <p>
+                    Removes all objects from the layer<br>
+                </p>
+            </dt>
+
+            <dt>
+                <h4>clear_ui_elements()</h4>
+
+                <p>
+                    Removes all UI elements from the layer<br>
+                </p>
+            </dt>
+            
+            <dt>
+                <h4>remove_objects(obj_list=[], tags=[])</h4>
+
+                <p>
+                    Remove specified objects from the layer<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>obj_list (<i>list</i>)</dt>
+                    <dd>Provide a list of objects that should be removed form the layer.</dd>
+                    <dt>tags (<i>list</i> of <i>str</i>)</dt>
+                    <dd>Remove objects from the layer with any of the given tags</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>remove_ui_elements(element_list=[], tags=[])</h4>
+
+                <p>
+                    Remove specified UI elements from the layer<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>element_list (<i>list</i>)</dt>
+                    <dd>Provide a list of UI elements that should be removed form the layer.</dd>
+                    <dt>tags (<i>list</i> of <i>str</i>)</dt>
+                    <dd>Remove UI elements from the layer with any of the given tags</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>add_child(layer)</h4>
+
+                <p>
+                    Add a child layer to this layer<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>layer (<i>list</i>)</dt>
+                    <dd>Layer to add as a child to this layer</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>set_visible(visible)</h4>
+
+                <p>
+                    Set visibility of the layer (but not child layers)<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>visible (<i>bool</i>)</dt>
+                    <dd>Specify if the layer should be visible (true) or not (false)</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>depth_set_visible(visible, set_self=True)</h4>
+
+                <p>
+                    Set visibility of the layer and all child layers<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>visible (<i>bool</i>)</dt>
+                    <dd>Specify if the layer and children should be visible (true) or not (false)</dd>
+                    <dt>set_self (<i>bool</i>)</dt>
+                    <dd>Specify if this layer should also be affected (true) or not (false; just the child layers)</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>update(events)</h4>
+
+                <p>
+                    Call <i>update()</i> on all objects and UI elements in this layer<br>
+                    Call <i>update()</i> on all child layers of this layer also.
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>events (<i>list</i>)</dt>
+                    <dd>Event list from <i>pygame.event.get()</i></dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>draw()</h4>
+
+                <p>
+                    Call <i>draw()</i> on all objects and UI elements in this layer<br>
+                    Call <i>draw()</i> on all child layers of this layer also.
+                </p>
+            </dt>
+
+            <dt>
+                <h4>find_layer(layer_name, path=None) -> tuple</h4>
+
+                <p>
+                    Find and return a tuple containing if the layer was successfully found (index 0) and the path to that layer (queue of layers to that layer)<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>layer_name (<i>str</i>)</dt>
+                    <dd>The name of the layer to find</dd>
+                    <dt>path (<i>Queue</i>)</dt>
+                    <dd>Queue of preceding layers. This should be ignored as its not meant to be assigned upon first call</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>switch_layer(layer_name, from_parent=False)</h4>
+
+                <p>
+                    Reveals the given layer name and hides all other children<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>layer_name (<i>str</i>)</dt>
+                    <dd>The name of the layer to find and reveal</dd>
+                    <dt>from_parent (<i>bool</i>)</dt>
+                    <dd>Switch from the parent layer instead of this layer</dd>
+                </dl>
+            </dd>
+
+
+
+        </dl>
+
+    <u><a href="../main.html">Back</a></u>
+    </body>
+</html>
