@@ -20,29 +20,6 @@ COLOURS = {
 '''
 UI Element class
 inherit from this when creating a UI element
-
-parameters:
-    surface : the pygame surface to draw onto
-    xpos : the x-coordinate of the UI element
-    ypos : the y-coordinate of the UI element
-    width : the width of the bounding box
-    height : the height of the bounding box
-    font : the font for drawing text
-    font_size : the size of the font
-methods:
-    get_pos : returns the postion vector
-    set_pos : sets the x and y coordinate of the position vector
-    get_bbox : returns the bottom-right corner of the bounding box
-    update : placeholder for update method
-    draw : placeholder for draw method
-    get/set text : get/set method for draw text
-    get/set tag : get/set tag for object's tag
-    require_visible : decorator to only call a function if the UI element is visible
-    set_font(font) : changes the font of the drawable text with the passed pygame font
-    _draw_background : draw the backbround rectangle of colour self.bgcol
-    _draw_text : draw text stored in self._text
-    _draw_border : draw the bounding box of the element
-    _draw_sprite : draw the sprite set via "set image"
 '''
 class UIElement:
     def __init__(self, surface, xpos, ypos, width, height, font="Comic Sans MS", font_size=14):
@@ -143,7 +120,7 @@ class UIElement:
             return False
 
     #Returns if tag is in object's tags
-    def has_tag(self, tag):
+    def has_tag(self, tag) -> bool:
         return (tag in self._tags)
 
     #get/set method for text

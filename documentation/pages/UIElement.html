@@ -16,20 +16,31 @@
         <h3>Parameters</h3>
                 
         <dl>
-            <dt>surface</dt>
+            <dt>surface (pygame surface)</dt>
             <dd>The pygame surface for the TextBox to be drawn on</dd>
-            <dt>xpos</dt>
+            <dt>xpos (<i>int</i>)</dt>
             <dd>X-coordinate of the UI element. Origin at top left of surface</dd>
-            <dt>ypos</dt>
+            <dt>ypos (<i>int</i>)</dt>
             <dd>Y-coordinate of the UI element. Origin at top left of surface</dd>
-            <dt>width</dt>
+            <dt>width (<i>int</i>)</dt>
             <dd>Pixel width of the UI element</dd>
-            <dt>height</dt>
+            <dt>height (<i>int</i>)</dt>
             <dd>Pixel height of the UI element</dd>
-            <dt>font</dt>
+            <dt>font (<i>str</i>)</dt>
             <dd>Font family for the drawn text</dd>
-            <dt>font_size</dt>
+            <dt>font_size (<i>int</i>)</dt>
             <dd>Size of the drawn text</dd>
+        </dl>
+
+        <h3>Attributes</h3>
+                
+        <dl>
+            <dt>bgcol (<i>tuple</i> of <i>int</i>)</dt>
+            <dd>Background colour to fill in <i>_draw_background()</i></dd>
+            <dt>fgcol (<i>tuple</i> of <i>int</i>)</dt>
+            <dd>Foreground colour. Mainly to draw text and border.</dd>
+            <dt>draw_border (<i>bool</i>)</dt>
+            <dd>Determines if a border should be drawn in <i>_draw_border()</i></dd>
         </dl>
 
         <h3>Methods</h3>
@@ -198,19 +209,144 @@
             </dd>
 
             <dt>
-                <h4>has_tags(tags, needs_all=True)</h4>
+                <h4>has_tags(tags, needs_all=True) -> bool</h4>
     
                 <p>
-                    Remove the given tag from the UI element's tag list.<br>
+                    Returns if object has all tags in passed tag list.<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>tags (<i>list</i>)</dt>
+                    <dd>List of tags that the UI element must contain</dd>
+                    <dt>needs_all (<i>bool</i>)</dt>
+                    <dd>Determines if at least one of the tags in the list is needed (false) or all (true)</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>has_tag(tag) -> bool</h4>
+    
+                <p>
+                    Returns if tag is in the UI element's tags<br>
                 </p>
             </dt>
             <dd>
                 <dl>
                     <dt>tag (<i>str</i>)</dt>
-                    <dd>Tag to remove from the tag list</dd>
+                    <dd>Tag the UI element must contain</dd>
                 </dl>
             </dd>
 
+            <dt>
+                <h4>set_text(text)</h4>
+    
+                <p>
+                    Sets the drawn text of the UI element to the string provided<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>text (<i>str</i>)</dt>
+                    <dd>Text to change the UI element's drawn text to</dd>
+                </dl>
+            </dd>
+            
+            <dt>
+                <h4>get_text() -> str</h4>
+                
+                <p>
+                    Returns the drawn text of the UI element<br>
+                </p>
+            </dt>
+
+            <dt>
+                <h4>set_font(font_name, size, align="left", args=())</h4>
+    
+                <p>
+                    Sets the font of the UI elements drawn text<br>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>font_name (<i>str</i>)</dt>
+                    <dd>Font family/name of the font to use</dd>
+                    <dt>size (<i>int</i>)</dt>
+                    <dd>The size to drawn the given font</dd>
+                    <dt>align (<i>str</i>)</dt>
+                    <dd>
+                        The font-aling to draw the text. <br>
+                        This can be:
+                        <ul>
+                            <li>"left"</li>
+                            <li>"centre"</li>
+                        </ul>
+                    </dd>
+                    <dt>args (<i>tuple</i>)</dt>
+                    <dd>Any additional arguments for the <i>pygame.sysfont.SysFont()</i> function.</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>require_visible(function)</h4>
+    
+                <p>
+                    Decorator to only trigger a function if <i>self.visible</i> is true.<br>
+                    Use <i>set_visible()</i> to change the <i>self.visible</i> attribute.
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>function (function)</dt>
+                    <dd>Function to only trigger when true</dd>
+                </dl>
+            </dd>
+
+            <dt>
+                <h4>_draw_background()</h4>
+    
+                <p>
+                    Fills the UI element's bounding area/size to the colour of <i>self.bgcol</i><br>
+                    Intended to be used in the <i>self.draw()</i> method.
+                </p>
+            </dt>
+
+            <dt>
+                <h4>_draw_text(custom_text="")</h4>
+    
+                <p>
+                    Draws text over the UI element.<br>
+                    Use <i>set_text()</i> to change the text which is drawn. <br>
+                    Colour of the text is drawn in <i>self.fgcol</i>
+                </p>
+            </dt>
+            <dd>
+                <dl>
+                    <dt>custom_text (str)</dt>
+                    <dd>
+                        Text to draw instead of <i>self._text</i>. <br>
+                        If string is empty, draws text stored in <i>self._text</i>
+                    </dd>
+                </dl>
+            </dd>
+            
+            <dt>
+                <h4>_draw_border()</h4>
+                
+                <p>
+                    Draws text bounding box/collision box. <br>
+                    Colour of the border is drawn in <i>self.fgcol</i>
+                </p>
+            </dt>
+
+            <dt>
+                <h4>_draw_sprite()</h4>
+    
+                <p>
+                    Draws a sprite to fit the size of the UI element's bounding area.<br>
+                    Set the sprite with <i>set_image()</i>
+                </p>
+            </dt>
         </dl>
 
     <u><a href="../main.html">Back</a></u>
